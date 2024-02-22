@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User List</title>
+    <link rel="stylesheet" href="/css/design.css" >
+
+</head>
+<body>
+
+
+
+
+<h2>User List</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Username</th>
+        <th>Email</th>
+        <th>Contact</th>
+        <th>Role</th>
+        <th>Address</th>
+        <th>Specialisation</th>
+        <th>Insurance Number</th>
+        <th>Bill</th>
+
+
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Thymeleaf iteration through the list of users -->
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.surname}"></td>
+        <td th:text="${user.username}"></td>
+        <td th:text="${user.email}"></td>
+        <td th:text="${user.contact}"></td>
+        <td th:text="${user.role}"></td>
+        <td th:text="${user.address}"></td>
+        <td th:text="${user.specialisation}"></td>
+        <td th:text="${user.insuranceNumber}"></td>
+        <td th:text="${user.bill}"></td>
+
+    </tr>
+    </tbody>
+</table>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+</html>

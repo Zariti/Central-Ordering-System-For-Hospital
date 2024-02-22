@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Hospital Application</title>
+    <link rel="stylesheet" href="/css/design.css"/>
+</head>
+<body>
+
+<nav id="navigation" class="nav">
+    <div class="">
+        <h1>Hospital</h1>
+    </div>
+    <ul>
+        <li th:if="${userRole != null}"><a href="/users/profile">Profile</a></li>
+        <li th:if="${userRole == 'PATIENT'}"><a href="/orders/patient">My Orders</a></li>
+        <li th:if="${userRole == 'DOCTOR_GENERAL_MEDICINE'}"><a href="/users/myPatients">My Patients</a></li>
+        <li th:if="${userRole == 'DOCTOR_GENERAL_MEDICINE'}"><a href="/orders/make_order">Make order</a></li>
+        <li th:if="${userRole == null}"><a href="/users/login">Login</a></li>
+        <li th:if="${userRole == 'DOCTOR_SPECIALIST'}"><a href="/orders/myOrdersSpecialist">My Orders</a></li>
+        <li th:if="${userRole == null}"><a href="/users/register">Register</a></li>
+        <li th:if="${userRole == 'ADMIN'}"><a href="/users/admin">List Users</a></li>
+        <li th:if="${userRole == 'ADMIN'}"><a href="/orders/admin">List Orders</a></li>
+        <li th:if="${userRole == 'PATIENT' || userRole == 'DOCTOR_GENERAL_MEDICINE' || userRole== 'DOCTOR_SPECIALIST' || userRole== 'ADMIN'}"><a href="/users/logout">Logout</a></li>
+
+
+
+    </ul>
+</nav>
+
+<p th:if="${userRole!= null}" >User Role: <span th:text="${userRole}"></span></p>
+
+<h2>Introduction</h2>
+<p>The Central Ordering System for Hospitals is a software designed to streamline appointment scheduling and order management within hospitals. This system provides four distinct roles: Doctor of General Medicine, Specialist Doctor, and Patient, each with specific capabilities and responsibilities within the system.</p>
+
+<h2>Roles and Capabilities</h2>
+
+
+<h3>Doctor of General Medicine:</h3>
+<p>Create patients.<br>
+    Ad patient orders.<br>
+    Schedule appointments for patients.</p>
+
+<h3>Specialist Doctor:</h3>
+<p>Modify orders.<br>
+    Send feedback to the Doctor of General Medicine and patients.</p>
+
+<h3>Patient:</h3>
+<p>Check their orders.</p>
+
+<h2>System Features</h2>
+
+<h3>User Authentication:</h3>
+<p>Users need to log in using their credentials to access the system and perform tasks according to their roles.</p>
+
+<h3>Patient Management:</h3>
+<p>Allows Doctor of General Medicine to create records.<br>
+    Allows patients to view their orders.</p>
+
+<h3>Order Management:</h3>
+<p>Enables Doctor of General Medicine to add orders.</p>
+
+
+<h3>Appointment Scheduling:</h3>
+<p>Permits Doctor of General Medicine to schedule appointments for patients.</p>
+
+<h3>Feedback System:</h3>
+<p>Allows Specialist Doctors to send feedback to Doctor of General Medicine and patients.</p>
+
+<h2>Usage Instructions</h2>
+
+<h3>Login:</h3>
+<p>Upon accessing the system, users will be prompted to log in using their designated credentials for their respective roles.</p>
+
+<h3>Administrator:</h3>
+<p>Use the administrative dashboard to see any items within the system, including user accounts, appointments, and orders.</p>
+
+<h3>Doctor of General Medicine:</h3>
+<p>Access the patient management module to create, modify, or delete patient records.<br>
+    Utilize the order management module to add orders.<br>
+    Schedule appointments for patients using the appointment scheduling feature.</p>
+
+<h3>Specialist Doctor:</h3>
+
+    Utilize the feedback system to provide feedback to Doctor of General Medicine and patients.</p>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+</html>

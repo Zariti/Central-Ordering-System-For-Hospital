@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order List</title>
+    <link rel="stylesheet" href="/css/design.css"/>
+
+</head>
+<body>
+
+<nav id="navigation">
+</nav>
+
+<div class="main-content">
+    <h1>Order List</h1>
+
+    <table id="order-table">
+        <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Patient Name</th>
+            <th>Doctor Name</th>
+            <th>Doctor specialist</th>
+            <th>Result</th>
+            <th>DateTime</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <!-- Iterate over the list of orders -->
+        <tr th:each="order : ${orders}">
+            <td th:text="${order.id}"></td>
+            <td th:text="${order.patient != null ? order.patient.name + ' ' + order.patient.surname : 'N/A'}"></td>
+            <td th:text="${order.doctorOfGeneralMedicine != null ? order.doctorOfGeneralMedicine.name + ' ' + order.doctorOfGeneralMedicine.surname : 'N/A'}"></td>
+            <td th:text="${order.doctorSpecialist != null ? order.doctorSpecialist.name + ' ' + order.doctorSpecialist.surname : 'N/A'}"></td>
+
+            <td th:text="${order.result != null ? order.result.diagnosis + '  ' + order.result.advice : 'N/A'}"></td>
+            <td th:text="${order.dateTime}"></td>
+
+
+
+        </tr>
+        </tbody>
+    </table>
+</div>
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer><script>
+    function deleteOrder(orderId) {
+        if (confirm('Are you sure you want to delete this order?')) {
+            // Use AJAX to send a DELETE request
+            fetch(`/orders/${orderId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    // Add any other headers if needed
+                },
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Handle success, e.g., redirect or update UI
+                    window.location.href = '/orders/admin';
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                });
+        }
+    }
+</script>
+
+</body>
+</html>

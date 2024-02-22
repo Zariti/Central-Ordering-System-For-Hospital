@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Profile</title>
+    <link rel="stylesheet" href="/css/design.css">
+    <style>
+        /* Add some initial styles to hide all profile divs */
+        div[id^="profile"] {
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <h1>Hospital</h1>
+    <ul>
+        <!-- Your navigation content here -->
+    </ul>
+</nav>
+
+<h2>Update Profile</h2>
+Role: <span th:text="${user.role}"></span>
+<form th:action="@{'/users/' + ${user.id}}" method="post" th:object="${user}">
+<table>
+    <tr>
+
+    <!-- Name -->
+    <td><label for="name">Name:</label></td>
+    <td><input type="text" id="name" name="name" th:value="${user.name}"><br></td>
+    </tr>
+    <tr>
+
+    <!-- Surname -->
+    <td><label for="surname">Surname:</label></td>
+        <td><input type="text" id="surname" name="surname" th:value="${user.surname}"><br></td>
+    </tr>
+
+    <!-- Username -->
+    <tr>
+
+        <td><label for="username">Username:</label></td>
+        <td> <input type="text" id="username" name="username" th:value="${user.username}" readonly><br></td>
+    </tr>
+
+    <!-- Email -->
+    <tr>
+
+        <td><label for="email">Email:</label></td>
+        <td><input type="text" id="email" name="email" th:value="${user.email}"><br></td>
+    </tr>
+
+    <!-- Contact -->
+    <tr>
+
+        <td> <label for="contact">Contact:</label></td>
+        <td><input type="text" id="contact" name="contact" th:value="${user.contact}"><br></td>
+    </tr>
+
+    <!-- Insurance Number (for PATIENT) -->
+    <tr>
+
+    <tr  th:if="${role == 'PATIENT'}">
+    <td><label for="insuranceNumber">Insurance Number:</label></td>
+    <td> <input type="text" id="insuranceNumber" name="insuranceNumber" th:value="${user.insuranceNumber}"><br></td>
+    </tr>
+
+    <!-- Bill (for PATIENT) -->
+
+    <tr th:if="${role == 'PATIENT'}">
+
+        <td><label for="bill">Bill:</label></td>
+        <td><input type="text" id="bill" name="bill" th:value="${user.bill}" readonly><br></td>
+    </tr>
+
+    <tr>
+
+    <!-- Address -->
+    <tr th:if="${role == 'DOCTOR_SPECIALIST' || role =='DOCTOR_OF_GENERAL_MEDICINE'}">
+    <td><label for="address">Address:</label></td>
+    <td><input type="text" id="address" name="address" th:value="${user.address}"><br></td>
+
+    </tr>
+    <tr th:if="${role == 'DOCTOR_SPECIALIST'}">
+        <td> <label for="specialisation">Specialisation:</label></td>
+        <td><input type="text" id="specialisation" name="specialisation" th:value="${user.specialisation}" readonly><br></td>
+
+    <!-- Doctor of General Medicine ID (for PATIENT) -->
+    </tr>
+
+    <tr th:if="${role == 'PATIENT'}">
+        <td>
+            <label for="doctorOfGeneralMedicine">Select Doctor of General Medicine:</label></td>
+        <td> <select id="doctorOfGeneralMedicine" name="doctorOfGeneralMedicineID" th:field="*{doctorOfGeneralMedicineID}">
+                <option value="" selected>Select a doctor</option>
+                <option th:each="doctor : ${doctorsOfGeneralMedicine}" th:value="${doctor.id}"
+                        th:text="${doctor.name + ' ' + doctor.surname + ' [ ' + doctor.address + ' ]'}"></option>
+            </select><br/></td>
+
+    </tr>
+
+</table>
+    <!-- Submit Button -->
+    <button type="submit">Update Profile</button>
+</form>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+
+</html>

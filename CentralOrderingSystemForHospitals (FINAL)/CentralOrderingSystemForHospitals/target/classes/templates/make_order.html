@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Order</title>
+    <link rel="stylesheet" href="/css/design.css">
+</head>
+<body>
+
+<h1>Create Order</h1>
+<a href="/users/">Home</a>
+
+<!-- Order Creation Form -->
+<form th:action="@{/orders/create}" th:object="${order}" method="post">
+
+    <!-- Dropdown for selecting patient -->
+    <label for="patient">Select Patient:</label>
+    <select id="patient" name="patients" th:field="*{patient}">
+        <option th:each="patient : ${patients}" th:value="${patient.id}"
+                th:text="${patient.name + ' ' + patient.surname + ' [ ' + patient.insuranceNumber + ' ]'}"></option>
+    </select><br/>
+
+    <!-- Dropdown for selecting doctor specialist -->
+    <label for="doctorSpecialistSelect">Select Doctor Specialist:</label>
+    <select id="doctorSpecialistSelect" name="doctorSpecialistSelectID" th:field="*{doctorSpecialist}">
+        <option th:each="doctorSpecialist : ${specialist}" th:value="${doctorSpecialist.id}"
+                th:text="${doctorSpecialist.name + ' ' + doctorSpecialist.surname + ' [ ' + doctorSpecialist.specialisation + ' ]'}"></option>
+    </select><br/>
+
+    <!-- Other form fields and details -->
+
+
+
+    <label for="reasonForExamination">Reason for Examination:</label>
+    <input type="text" id="reasonForExamination" name="reasonForExamination" th:field="*{reasonForExamination}" /><br/>
+
+
+
+    <button type="submit">Create Order</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!-- specialist_doctor_orders.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Specialist Doctor Orders</title>
+    <link rel="stylesheet" href="/css/design.css"/>
+
+</head>
+<body>
+
+<!--<div th:replace="templates/fragments/navbar :: navbar"></div>-->
+<nav>
+    <h1>Hospital</h1>
+    <ul>
+        <li th:if="${user.role != null}"><a href="/users/profile">Profile</a></li>
+
+        <li><a href="/users/">Home</a></li>
+        <li th:if="${user.role != null}"><a href="/users/logout">Logout</a></li>
+    </ul>
+</nav>
+
+<h2>Specialist Doctor Orders</h2>
+
+
+
+
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Reason</th>
+        <th>GeneralDoctor</th>
+        <th>Patient</th>
+        <th>Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate through the orders -->
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.dateTime}"></td>
+        <td th:text="${order.reasonForExamination}"></td>
+        <td th:text="${order.doctorOfGeneralMedicine.name} + ' '+${order.doctorOfGeneralMedicine.surname}" ></td>
+        <td th:text="${order.patient.name} + '  '+${order.patient.surname}" ></td>
+
+        <td>
+            <a class="createResult" th:href="@{/results/create/{orderId}(orderId=${order.getId()})}">Create Result</a>
+        </td>
+
+
+        <!-- Add more columns if needed -->
+    </tr>
+    </tbody>
+</table>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+</html>

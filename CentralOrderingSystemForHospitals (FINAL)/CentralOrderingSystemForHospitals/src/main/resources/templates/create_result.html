@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="/css/design.css"/>
+
+</head>
+<body>
+
+<h1>Order Details</h1>
+<a href="/orders/myOrdersSpecialist">Back</a>
+
+<table>
+    <tr>
+        <th>ID</th>
+        <td th:text="${order.id}"></td>
+    </tr>
+    <tr>
+        <th>Date and Time</th>
+        <td th:text="${order.dateTime}"></td>
+    </tr>
+
+    <tr>
+        <th>Doctor of General Medicine</th>
+        <td th:text="${order.doctorOfGeneralMedicine.name}"></td>
+        <td th:text="${order.doctorOfGeneralMedicine.surname}"></td>
+        <td th:text="${order.doctorOfGeneralMedicine.address}"></td>
+
+    </tr>
+    <tr>
+        <th>Doctor Specialist</th>
+        <td th:text="${order.doctorSpecialist.name}"></td>
+        <td th:text="${order.doctorSpecialist.surname}"></td>
+        <td th:text="${order.doctorSpecialist.specialisation}"></td>
+
+
+    </tr>
+    <tr>
+        <th>Patient</th>
+        <td th:text="${order.patient.name}"></td>
+        <td th:text="${order.patient.surname}"></td>
+    </tr>
+
+    <tr>
+        <td>Reason</td>
+        <td th:text="${order.reasonForExamination}"></td>
+    </tr>
+
+
+
+    <!-- Add other fields as needed -->
+</table>
+<h2>Add result</h2>
+<form action="/results/create" method="post" th:object="${result}">
+    <input type="hidden"  th:value="${order.id}" />
+
+    <label for="diagnosis">Diagnosis:</label>
+    <input type="text" id="diagnosis" name="diagnosis" th:field="*{diagnosis}" required />
+
+    <label for="advice">Advice:</label>
+    <input type="text" id="advice" name="advice" th:field="*{advice}" required/>
+
+    <button type="submit">Submit</button>
+</form>
+<!-- Include any necessary JavaScript files or scripts here -->
+
+</body>
+</html>

@@ -1,0 +1,78 @@
+<!-- patient_orders.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Orders</title>
+    <link rel="stylesheet" type="text/css" href="/css/design.css">
+</head>
+<body>
+
+
+<!--<div th:replace="templates/fragments/navbar :: navbar"></div>-->
+
+<h1>Patient Orders</h1>
+
+
+<nav id="navigation">
+    <div class="">
+        <h1>Hospital</h1>
+    </div>
+    <ul>
+        <li><a href="/users/">Home</a></li>
+        <li ><a href="/users/profile">Profile</a></li>
+
+        <li th:if="${patient.id !=null || doctor!=null}"><a href="/users/logout">Logout</a></li>
+
+
+
+    </ul>
+</nav>
+
+<h2 th:if="doctor!=null" th:text="${doctor.name + ' '+ doctor.surname}"></h2>
+<!-- Display patient information if needed -->
+<h3 th:text="${patient.name + ' ' + patient.surname}"></h3>
+
+<table border="1">
+
+
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Date</th>
+        <th>Specialist</th>
+        <th>Reason of examination</th>
+        <th>Result Diagnosis</th>
+        <th>Advice</th>
+
+        <!-- Add more columns if needed -->
+    </tr>
+    </thead>
+    <tbody>
+
+
+    <!-- Iterate through the orders -->
+    <tr th:each="order : ${orders}">
+        <td th:text="${order.id}"></td>
+        <td th:text="${order.dateTime}"></td>
+        <td th:text="${order.doctorSpecialist.name + ' '+order.doctorSpecialist.surname + ' - '+ order.doctorSpecialist.specialisation}"></td>
+        <td th:text="${order.reasonForExamination}"></td>
+        <td th:text="${order.result != null ? order.result.diagnosis : ''}"></td>
+        <td th:text="${order.result != null ? order.result.advice : ''}"></td>
+        <!-- Add more columns if needed -->
+    </tr>
+    </tbody>
+</table>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+</html>

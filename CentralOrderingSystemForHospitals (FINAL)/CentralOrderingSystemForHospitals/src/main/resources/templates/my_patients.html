@@ -1,0 +1,54 @@
+<!-- patients.html -->
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patients</title>
+    <link rel="stylesheet" type="text/css" href="/css/design.css">
+
+</head>
+<body>
+
+<!--<div th:replace="templates/fragments/navbar :: navbar"></div>-->
+
+
+<h2>Patients</h2>
+<a href="/users/">Home</a>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Surname</th>
+        <th>Contact</th>
+        <th>Email</th>
+        <th>Order List</th>
+        <!-- Add more columns if needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Iterate through the patients -->
+    <tr th:each="patient : ${patients}">
+        <td th:text="${patient.id}"></td>
+        <td th:text="${patient.name}"></td>
+        <td th:text="${patient.surname}"></td>
+        <td th:text="${patient.contact}"></td>
+        <td th:text="${patient.email}"></td>
+        <td><a th:href="@{/orders/patient/{patientId}(patientId=${patient.id})}">Go to Orders</td>
+    </tr>
+    </tbody>
+</table>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+</body>
+</html>

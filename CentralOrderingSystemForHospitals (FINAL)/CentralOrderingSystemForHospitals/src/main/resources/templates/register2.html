@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <title>User Registration</title>
+    <link rel="stylesheet" href="/css/design.css">
+    <script th:inline="javascript">
+        function showFieldsForRole() {
+            // Reset visibility of all fields
+            document.getElementById("insuranceNumberField").style.display = "none";
+            document.getElementById("billField").style.display = "none";
+            document.getElementById("doctorOfGeneralMedicineField").style.display = "none";
+            document.getElementById("specialisationField").style.display = "none";
+            document.getElementById("addressField").style.display = "none";
+            document.getElementById("role").style.display = "none"; // Hide the role dropdown
+
+            // Get the selected role
+            let selectedRole = document.getElementById("role").value;
+
+            // Show fields based on the selected role
+            if (selectedRole === "PATIENT") {
+                document.getElementById("insuranceNumberField").style.display = "block";
+                document.getElementById("billField").style.display = "block";
+                document.getElementById("doctorOfGeneralMedicineField").style.display = "block";
+            } else if (selectedRole === "DOCTOR_SPECIALIST") {
+                document.getElementById("specialisationField").style.display = "block";
+                document.getElementById("addressField").style.display = "block";
+            } else if (selectedRole === "DOCTOR_GENERAL_MEDICINE") {
+                document.getElementById("addressField").style.display = "block";
+                document.getElementById("h2").style.display = "block";
+
+            }
+            // Add other conditions as needed for different roles
+        }
+        function validatePassword() {
+            var password = document.getElementById("password").value;
+            var passwordConfirm = document.getElementById("passwordConfirm").value;
+
+            if (password !== passwordConfirm) {
+                alert("Passwords do not match. Please enter matching passwords.");
+                return false;
+            }
+
+            return true;
+        }
+
+
+    </script>
+</head>
+<body>
+
+<h2>User Registration</h2>
+
+<form action="/users/register" method="post" th:object="${user}" onsubmit="return validatePassword()">
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" th:field="*{name}" required/><br/>
+
+    <label for="surname">Surname:</label>
+    <input type="text" id="surname" name="surname" th:field="*{surname}" required/><br/>
+
+    <label for="username">Username:</label>
+    <input type="text" id="username" name="username" th:field="*{username}" required/><br/>
+
+    <label for="password">Password:</label>
+    <input type="password" id="password" name="password" th:field="*{password}" required/><br/>
+
+    <label for="passwordConfirm">Confirm Password:</label>
+    <input type="password" id="passwordConfirm" name="passwordConfirm" required/><br/>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" th:field="*{email}" required/><br/>
+
+    <label for="contact">Contact:</label>
+    <input type="text" id="contact" name="contact" th:field="*{contact}" required/><br/>
+
+    <label for="role">Role:</label>
+    <select id="role" name="role" th:field="*{role}" required onchange="showFieldsForRole()">
+        <option value="" selected>Select role</option>
+        <option value="DOCTOR_SPECIALIST">Doctor Specialist</option>
+        <option value="DOCTOR_GENERAL_MEDICINE">Doctor General Medicine</option>
+        <option value="PATIENT">Patient</option>
+        <option value="ADMIN">Admin</option>
+    </select><br/>
+
+    <!-- Polje za insuranceNumber, po defaultu skriveno -->
+    <div id="insuranceNumberField" style="display: none;">
+        <h2>Patient</h2>
+        <label for="insuranceNumber">Insurance Number:</label>
+        <input type="text" id="insuranceNumber" name="insuranceNumber" th:field="*{insuranceNumber}"/><br/>
+    </div>
+
+    <div id="billField" style="display: none;">
+        <label for="bill">Bill:</label>
+        <input type="text" id="bill" name="bill" th:field="*{bill}"/><br/>
+    </div>
+
+    <div id="doctorOfGeneralMedicineField" style="display: none;">
+        <label for="doctorOfGeneralMedicine">Doctor of General Medicine:</label>
+        <select id="doctorOfGeneralMedicine" name="doctorOfGeneralMedicineID" th:field="*{doctorOfGeneralMedicineID}">
+            <option value="" selected>Select a doctor</option>
+            <option th:each="doctor : ${doctorsOfGeneralMedicine}" th:value="${doctor.id}"
+                    th:text="${doctor.name + ' ' + doctor.surname + ' [ ' + doctor.address + ' ]'}"></option>
+        </select><br/>
+    </div>
+
+    <!-- Polje za specialisation, po defaultu skriveno -->
+
+    <div id="specialisationField" style="display: none;">
+        <h2>Doctor Specialist</h2>
+        <label for="specialisation">Specialisation:</label>
+        <select id="specialisation" name="specialisation" th:field="*{specialisation}">
+            <option value="" selected>Select specialisation</option>
+            <option value="INTERNAL_MEDICINE">Internal Medicine</option>
+            <option value="SURGERY">Surgery</option>
+            <option value="PEDIATRICS">Pediatrics</option>
+            <option value="ORTHOPEDICS">Orthopedics</option>
+            <option value="DERMATOLOGY">Dermatology</option>
+            <option value="NEUROLOGY">Neurology</option>
+            <option value="CARDIOLOGY">Cardiology</option>
+            <option value="ONCOLOGY">Oncology</option>
+            <option value="GASTROENTEROLOGY">Gastroenterology</option>
+            <option value="UROLOGY">Urology</option>
+            <option value="OPHTHALMOLOGY">Ophthalmology</option>
+            <option value="OTOLARYNGOLOGY">Otolaryngology</option>
+            <option value="PSYCHIATRY">Psychiatry</option>
+            <option value="RADIOLOGY">Radiology</option>
+            <option value="ANESTHESIOLOGY">Anesthesiology</option>
+            <option value="EMERGENCY_MEDICINE">Emergency Medicine</option>
+            <option value="INFECTIOUS_DISEASE">Infectious Disease</option>
+            <option value="RHEUMATOLOGY">Rheumatology</option>
+            <option value="ENDOCRINOLOGY">Endocrinology</option>
+            <option value="ALLERGY_AND_IMMUNOLOGY">Allergy and Immunology</option>
+        </select><br/>
+    </div>
+
+    <div id="h2" style="display: none">
+        <h2>Doctor of General Medicine</h2>
+    </div>
+
+    <!-- Polje za address, po defaultu skriveno -->
+    <div id="addressField" style="display: none;">
+        <label for="address">Address:</label>
+        <input type="text" id="address" name="address" th:field="*{address}"/><br/>
+    </div>
+
+    <!-- Add other fields as needed -->
+
+    <button type="submit">Register</button>
+</form>
+
+<!-- Display error message if registration fails -->
+<p th:if="${error}" th:text="${error}"></p>
+
+</body>
+</html>

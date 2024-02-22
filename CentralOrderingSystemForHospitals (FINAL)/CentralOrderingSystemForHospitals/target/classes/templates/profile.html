@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="stylesheet" href="/css/design.css">
+    <style>
+        /* Add some initial styles to hide all profile divs */
+        div[id^="profile"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <h1>Hospital</h1>
+    <ul>
+        <li th:if="${user.role == 'PATIENT'}"><a href="/users/profile">Profile</a></li>
+        <li th:if="${user.role == 'PATIENT'}"><a href="/patient_orders">My Orders</a></li>
+        <li th:if="${user.role == 'DOCTOR_GENERAL_MEDICINE'}"><a href="/users/myPatients">My Patients</a></li>
+        <li th:if="${user.role == 'DOCTOR_GENERAL_MEDICINE'}"><a href="/orders/make_order">Make order</a></li>
+        <li th:if="${user.role == 'DOCTOR_SPECIALIST'}"><a href="/my_orders_for_specialist">My Orders</a></li>
+        <li th:if="${user.role == 'ADMIN'}"><a href="/users/admin">List Users</a></li>
+        <li th:if="${user.role == 'ADMIN'}"><a href="/orders/admin">List Orders</a></li>
+        <li th:if="${user.role != null}"><a href="/users/logout">Logout</a></li>
+        <li><a href="/users/">Home</a></li>
+    </ul>
+</nav>
+
+<!-- Check if user is present before accessing its properties -->
+<p th:if="${user.role}">WELCOME <span th:text="${user.getName().toUpperCase()}"></span>, THIS IS YOUR PROFILE PAGE</p>
+
+<h2 th:text="${user.getName()}"></h2>
+<h2>Profile</h2>
+<!-- Profile information in a table -->
+<table>
+    <tr th:if="${user.getRole() != null}">
+        <td>Role</td>
+        <td th:text="${user.getRole()}"></td>
+    </tr>
+
+    <tr th:if="${user.getName() != null}">
+        <td>Name</td>
+        <td th:text="${user.getName()}"></td>
+    </tr>
+    <tr th:if="${user.getSurname() != null}">
+        <td>Surname</td>
+        <td th:text="${user.getSurname()}"></td>
+    </tr>
+    <tr th:if="${user.getUsername() != null}">
+        <td>Username</td>
+        <td th:text="${user.getUsername()}"></td>
+    </tr>
+    <tr th:if="${user.getEmail() != null}">
+        <td>Email</td>
+        <td th:text="${user.getEmail()}"></td>
+    </tr>
+    <tr th:if="${user.getContact() != null}">
+        <td>Contact</td>
+        <td th:text="${user.getContact()}"></td>
+    </tr>
+    <tr th:if="${user.role == 'PATIENT'}">
+        <td>Insurance Number</td>
+        <td th:text="${user.getInsuranceNumber()}"></td>
+    </tr>
+    <tr th:if="${user.role == 'PATIENT'}">
+        <td>Bill</td>
+        <td th:text="${user.bill}"></td>
+    </tr>
+    <tr th:if="${user.role != 'PATIENT' || user.role!='ADMIN'}">
+        <td>Address</td>
+        <td th:text="${user.address}"></td>
+    </tr>
+    <tr th:if="${user.role == 'DOCTOR_SPECIALIST'}">
+        <td>Specialisation</td>
+        <td th:text="${user.specialisation}"></td>
+    </tr>
+    <tr th:if="${user.role == 'PATIENT'}">
+        <td>Doctor of General Medicine ID</td>
+        <td th:text="${user.getDoctorOfGeneralMedicineID()}"></td>
+    </tr>
+</table>
+<a th:href="@{'/users/update/' + ${user.id}}">Update Profile</a>
+
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+    </div>
+</footer>
+</body>
+</html>

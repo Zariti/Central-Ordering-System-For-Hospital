@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="/css/design.css" >
+</head>
+<body>
+<nav>
+    <div class="">
+        <h1>Hospital</h1>
+    </div>
+    <ul>
+
+        <li><a href="/users/">Home</a></li>
+
+        <li th:if="${patient.id !=null || doctorOfGeneralMedicine!=null || doctorSpecialist!=null}"><a href="/users/logout">Logout</a></li>
+
+
+
+    </ul>
+</nav>
+
+<h1>Order Details</h1>
+
+<table>
+    <tr>
+        <th>ID</th>
+    </tr>
+    <tr>
+        <th>Date and Time</th>
+        <td th:text="${orderDate}"></td>
+    </tr>
+
+    <tr>
+        <th>Doctor of General Medicine</th>
+        <td th:if="${doctorOfGeneralMedicine != null}" th:text="${doctorOfGeneralMedicine.name}"></td>
+        <td th:if="${doctorOfGeneralMedicine != null}" th:text="${doctorOfGeneralMedicine.surname}"></td>
+    </tr>
+    <tr>
+        <th>Doctor Specialist</th>
+        <td th:if="${doctorSpecialist != null}" th:text="${doctorSpecialist.name}"></td>
+        <td th:if="${doctorSpecialist != null}" th:text="${doctorSpecialist.surname}"></td>
+    </tr>
+    <tr>
+        <th>Patient</th>
+        <td th:if="${patient != null}" th:text="${patient.name}"></td>
+        <td th:if="${patient != null}" th:text="${patient.surname}"></td>
+    </tr>
+
+    <tr>
+        <th>Reason for examination</th>
+        <td th:text="${reason}"></td>
+    </tr>
+    <tr>
+    <th th:if="${result != null}">Diagnosis</th>
+
+    <td th:if="${result != null}" th:text="${result.diagnosis}"></td>
+    </tr>
+
+    <tr>
+        <th th:if="${result != null}">Advice</th>
+        <td th:if="${result !=null}" th:text="${result.advice}"></td>
+
+    </tr>
+
+
+
+
+    
+
+    <!-- Add other fields as needed -->
+</table>
+
+<footer class="footer">
+    <div class="footer-content">
+        <p>&copy; 2024 Central Ordering System. All rights reserved.</p>
+        <p>Contact us: <a href="mailto:maroancic@gmail.com">mailto:maroancic@gmail.com</a></p>
+
+        <p>Contact us: <a href="mailto:josip.dom98@gmail.com">josip.dom98@gmail.com</a></p>
+        <p>Address: 123 Medical Street, Cityville, Country</p>
+    </div>
+</footer>
+
+</body>
+</html>
